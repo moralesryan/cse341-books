@@ -20,4 +20,4 @@ const startServer = async () => {
     }
 };
 
-await startServer();
+await startServer(); 
