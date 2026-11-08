@@ -1,5 +1,7 @@
 import express from 'express';
 import { getBooksHandler, getBookByIdHandler } from './controllers/books.js';
+import { getAllAuthors } from './controllers/authors.js';
+
 
 const router = express.Router();
 
