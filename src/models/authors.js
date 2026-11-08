@@ -8,4 +8,17 @@ const getAllAuthors = async () => {
     return authors;
 };
 
-export { getAllAuthors };
+const getAuthorById = async (authorId) => {
+    const db = getDb();
+    const collection = db.collection('authors');
+    const author = await collection.findOne({ id: authorId });
+    return author;
+};
+
+const createAuthor = async (author) => {
+    const db = getDb();
+    const collection = db.collection('authors');
+    await collection.insertOne({ ...author });
+    return author;
+}
+export { getAllAuthors, getAuthorById, createAuthor };

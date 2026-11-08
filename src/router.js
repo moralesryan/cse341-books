@@ -1,6 +1,6 @@
 import express from 'express';
 import { getBooksHandler, getBookByIdHandler } from './controllers/books.js';
-import { getAllAuthors } from './controllers/authors.js';
+import { getAllAuthors, getAuthorByIdHandler, createAuthorHandler } from './controllers/authors.js';
 
 
 const router = express.Router();
@@ -43,6 +43,21 @@ router.get('/books', getBooksHandler);
  *         description: Unable to retrieve book
  */
 router.get('/books/:id', getBookByIdHandler);
+
+/**
+ * @openapi
+ * /authors:
+ *   get:
+ *     summary: Get all authors
+ *     tags:
+ *       - Authors
+ *     responses:
+ *       200:
+ *         description: A list of authors
+ *       500:
+ *         description: Unable to retrieve authors
+ */
+router.get('/authors', getAllAuthors);
 
 
 export default router;
