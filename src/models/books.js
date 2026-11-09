@@ -4,14 +4,44 @@ const getAllBooks = async () => {
     const db = getDb();
     const collection = db.collection('books');
     const books = await collection.find({}).toArray();
+
     return books;
 };
 
-const getBookById = async (bookId) => {
+const getBookById = async (id) => {
     const db = getDb();
     const collection = db.collection('books');
-    const book = await collection.findOne({ id: bookId });
-    return book;
-}
+    const book = await collection.findOne({ id });
 
-export { getAllBooks, getBookById };
+    return book;
+};
+
+const createBook = async (book) => {
+    const db = getDb();
+    const collection = db.collection('books');
+    await collection.insertOne({ ...book });
+
+    return book;
+};
+
+const updateBook = async (id, book) => {
+    const db = getDb();
+    const collection = db.collection('books');
+    const result = await collection.findOneAndUpdate(
+        { id },
+        { $set: book },
+        { returnDocument: 'after' }
+    );
+
+    return result;
+};
+
+const deleteBook = async (id) => {
+    const db = getDb();
+    const collection = db.collection('books');
+    const result = await collection.deleteOne({ id });
+
+    return result.deletedCount > 0;
+};
+
+export { getAllBooks, getBookById, createBook, updateBook, deleteBook };
